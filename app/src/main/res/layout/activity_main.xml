@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:gravity="center"
+    android:padding="24dp"
+    android:background="#F5F5F5">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="16dp"
+        android:background="@drawable/rounded_background"
+        android:elevation="4dp"
+        android:layout_margin="16dp"
+        android:layout_gravity="center"
+        android:layout_marginTop="100dp">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Login"
+            android:textStyle="bold"
+            android:gravity="center"
+            android:padding="8dp"
+            android:background="#CCCCCC" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="E-mail:"
+            android:layout_marginTop="12dp"
+            android:textStyle="bold" />
+
+
+        <EditText
+            android:id="@+id/emailEditText"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:inputType="textEmailAddress"
+            android:background="@android:drawable/editbox_background" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Senha:"
+            android:layout_marginTop="12dp"
+            android:textStyle="bold" />
+
+        <EditText
+            android:id="@+id/senhaEditText"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:inputType="textPassword"
+            android:background="@android:drawable/editbox_background" />
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/loginButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Entrar"
+            android:textColor="#000000"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="16dp"
+            android:backgroundTint="#CCCCCC"
+            style="@style/Widget.MaterialComponents.Button"/>
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/textViewCadastro"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginTop="12dp"
+        android:text="Ou cadastre-se"
+        android:textStyle="italic"
+        android:clickable="true"
+        android:focusable="true"/>
+
+</LinearLayout>
