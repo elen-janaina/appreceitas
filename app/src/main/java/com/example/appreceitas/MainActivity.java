@@ -29,25 +29,38 @@ public class MainActivity extends AppCompatActivity {
         loginButton = findViewById(R.id.loginButton);
         textViewCadastro = findViewById(R.id.textViewCadastro);
 
-        loginButton.setOnClickListener(v -> {
-            String email = emailEditText.getText().toString().trim();
-            String senha = senhaEditText.getText().toString().trim();
-
-            if (email.isEmpty() || senha.isEmpty()) {
-                Toast.makeText(this, "Preencha todos os campos", Toast.LENGTH_SHORT).show();
-            } else if (!dbHelper.verificarEmail(email)) {
-                Toast.makeText(this, "Email não encontrado", Toast.LENGTH_SHORT).show();
-            } else if (!dbHelper.verificarSenhaCorreta(email, senha)) {
-                Toast.makeText(this, "Senha incorreta", Toast.LENGTH_SHORT).show();
-            } else {
-                Toast.makeText(this, "Login realizado com sucesso", Toast.LENGTH_SHORT).show();
-                finish(); // ou ir para próxima activity, se quiser
-            }
-        });
+        loginButton.setOnClickListener(v -> realizarLogin());
 
         textViewCadastro.setOnClickListener(v -> {
             Intent intent = new Intent(this, Cadastro.class);
             startActivity(intent);
         });
+    }
+
+    private void realizarLogin() {
+        String email = emailEditText.getText().toString().trim();
+        String senha = senhaEditText.getText().toString().trim();
+
+        if (email.isEmpty() || senha.isEmpty()) {
+            Toast.makeText(this, "Preencha todos os campos", Toast.LENGTH_SHORT).show();
+            return;
+        }
+
+        if (!dbHelper.verificarEmail(email)) {
+            Toast.makeText(this, "Email não encontrado", Toast.LENGTH_SHORT).show();
+            return;
+        }
+
+        if (!dbHelper.verificarSenhaCorreta(email, senha)) {
+            Toast.makeText(this, "Senha incorreta", Toast.LENGTH_SHORT).show();
+            return;
+        }
+
+        Toast.makeText(this, "Login realizado com sucesso", Toast.LENGTH_SHORT).show();
+
+        Intent intent = new Intent(MainActivity.this, GaleriaReceitasActivity.class);
+        intent.putExtra("email_usuario", email);
+        startActivity(intent);
+        finish();
     }
 }

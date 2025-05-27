@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="16dp"
+    android:background="#FFFFFF">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:background="@drawable/rounded_background"
+        android:padding="16dp">
+
+        <EditText
+            android:id="@+id/inputTitulo"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Título da Receita"
+            android:textSize="22sp"
+            android:textStyle="bold"
+            android:inputType="text"
+            android:layout_marginBottom="12dp" />
+
+        <ImageView
+            android:id="@+id/imagemReceita"
+            android:layout_width="match_parent"
+            android:layout_height="200dp"
+            android:src="@drawable/ic_placeholder"
+            android:scaleType="centerCrop"
+            android:background="@drawable/rounded_image"
+            android:contentDescription="Imagem da Receita" />
+
+        <Button
+            android:id="@+id/btnSelecionarImagem"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Selecionar Imagem"
+            android:layout_marginTop="8dp"
+            android:layout_gravity="center_horizontal" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Ingredientes"
+            android:textStyle="bold"
+            android:layout_marginTop="16dp" />
+
+        <EditText
+            android:id="@+id/inputIngredientes"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:minLines="3"
+            android:hint="Ex: 2 ovos, 1 xícara de leite..."
+            android:inputType="textMultiLine"
+            android:gravity="top|start" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Recheio"
+            android:textStyle="bold"
+            android:layout_marginTop="12dp" />
+
+        <EditText
+            android:id="@+id/inputRecheio"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:minLines="2"
+            android:hint="Ex: Doce de leite, brigadeiro..."
+            android:inputType="textMultiLine"
+            android:gravity="top|start" />
+
+        <!-- Modo de Preparo -->
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Modo de preparo"
+            android:textStyle="bold"
+            android:layout_marginTop="12dp" />
+
+        <EditText
+            android:id="@+id/inputPreparo"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:minLines="4"
+            android:hint="Ex: Misture tudo e leve ao forno..."
+            android:inputType="textMultiLine"
+            android:gravity="top|start" />
+
+        <Button
+            android:id="@+id/btnSalvar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Salvar Receita"
+            android:layout_marginTop="24dp" />
+    </LinearLayout>
+</ScrollView>
