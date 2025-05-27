@@ -1,19 +1,37 @@
-App Receitas
+# 📱 App Receitas
 
-    Este aplicativo permite cadastro e login de usuários com base em um banco de dados SQLite interno.
-    Tera a tela inicial onde outras funcionalidades serão adicionadas (ex: listagem de receitas).
+Aplicativo Android que permite que cada usuário cadastre, visualize e gerencie suas próprias receitas de forma prática, com imagens, seções organizadas e busca por título. Utiliza armazenamento local com SQLite e arquivos JSON.
 
+## ✨ Funcionalidades
 
-    - Identidade visual: simples
-    - Ícone do aplicativo: criado com a temática de culinária (colher), nas cores branco e dourado
-    - Botões estilizados: com MaterialButton
-    - Layout clean: usando fontes legíveis, cores suaves e contrastes adequados para acessibilidade
-    - Tela de Login e Cadastro: com validações visuais e mensagens para orientar o usuário
+- Cadastro e login de usuários com validações
+- Galeria de receitas personalizada por usuário
+- Cadastro de novas receitas com:
+  - Imagem da receita
+  - Título
+  - Ingredientes
+  - Recheio
+  - Modo de Preparo
+- Busca de receitas por título
+- Salvamento persistente das receitas com JSON local
+- Interface clean e acessível
 
+## 💡 Identidade Visual
 
-    Tecnologias utilizadas
+- Ícone com tema culinário (colher), nas cores branco e dourado
+- Estilização com `MaterialButton`
+- Layout responsivo, com cores suaves e contraste para acessibilidade
+- Fontes legíveis e botões bem distribuídos
 
-    - Java
-    - SQLite (armazenamento local)
-    - XML (layouts)
+## 🛠 Tecnologias Utilizadas
 
+- Java (lógica de programação)
+- SQLite (autenticação e controle de usuários)
+- JSON interno (armazenamento de receitas)
+- XML (layouts)
+- Glide (carregamento de imagens por URI)
+- Android Studio (IDE)
+
+## 📷 Tela Inicial
+
+A tela inicial exibe as receitas do usuário logado, com barra de pesquisa no topo. Ao clicar em uma receita, os detalhes são exibidos em formato expansível.
