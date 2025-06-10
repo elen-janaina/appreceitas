@@ -1,6 +1,7 @@
 package com.example.appreceitas;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.net.Uri;
 import android.os.Bundle;
 import android.view.View;
@@ -28,8 +29,8 @@ public class GaleriaReceitasActivity extends AppCompatActivity {
     ImageButton fab;
     LinearLayout recipeGallery;
 
-    private String emailUsuario;
-    private ReceitaStorage storage;
+    private long loggedInUserId;
+    private DatabaseHelper dbHelper;
     private List<Receita> receitas;
 
     @Override
@@ -42,19 +43,19 @@ public class GaleriaReceitasActivity extends AppCompatActivity {
         searchInput = findViewById(R.id.searchInput);
         searchButton = findViewById(R.id.searchButton);
 
-        emailUsuario = getIntent().getStringExtra("email_usuario");
+        dbHelper = new DatabaseHelper(this);
 
-        storage = new ReceitaStorage(this);
-        receitas = storage.carregarReceitas(emailUsuario);
-        if (receitas == null) {
-            receitas = new ArrayList<>();
+        SharedPreferences preferences = getSharedPreferences("user_prefs", MODE_PRIVATE);
+        loggedInUserId = preferences.getLong("logged_in_user_id", -1);
+
+        if (loggedInUserId == -1) {
+            Intent intent = new Intent(GaleriaReceitasActivity.this, MainActivity.class);
+            startActivity(intent);
+            finish();
+            return;
         }
 
-        receitasFiltradas = new ArrayList<>(receitas);
-
-        for (Receita r : receitasFiltradas) {
-            addReceitaCard(r);
-        }
+        loadAndDisplayRecipes();
 
         fab.setOnClickListener(v -> {
             Intent intent = new Intent(GaleriaReceitasActivity.this, NovaReceitaActivity.class);
@@ -68,17 +69,31 @@ public class GaleriaReceitasActivity extends AppCompatActivity {
     }
 
     @Override
+    protected void onResume() {
+        super.onResume();
+        // Recarregar as receitas sempre que a atividade for retomada
+        loadAndDisplayRecipes();
+    }
+
+    private void loadAndDisplayRecipes() {
+        receitas = dbHelper.getReceitasPorUsuario(loggedInUserId);
+        if (receitas == null) {
+            receitas = new ArrayList<>();
+        }
+        receitasFiltradas = new ArrayList<>(receitas);
+        recipeGallery.removeAllViews(); // Limpar a galeria antes de recarregar
+        for (Receita r : receitasFiltradas) {
+            addReceitaCard(r);
+        }
+    }
+
+    @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
 
-        if (requestCode == REQUEST_NOVA_RECEITA && resultCode == RESULT_OK && data != null) {
-            Receita nova = (Receita) data.getSerializableExtra("nova_receita");
-            if (nova != null) {
-                receitas.add(nova);
-                receitasFiltradas.add(nova);
-                addReceitaCard(nova);
-                storage.salvarReceitas(emailUsuario, receitas);
-            }
+        if (requestCode == REQUEST_NOVA_RECEITA && resultCode == RESULT_OK) {
+            // Não é necessário lidar com o 'nova_receita' aqui, pois onResume() irá recarregar
+            // a lista do banco de dados.
         }
     }
 
@@ -154,3 +169,4 @@ public class GaleriaReceitasActivity extends AppCompatActivity {
         return Math.round(dp * density);
     }
 }
+

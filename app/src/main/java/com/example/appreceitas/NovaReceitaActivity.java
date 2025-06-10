@@ -1,6 +1,7 @@
 package com.example.appreceitas;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.net.Uri;
 import android.os.Bundle;
 import android.widget.Button;
@@ -12,16 +13,14 @@ import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.appcompat.app.AppCompatActivity;
 
-import java.util.List;
-
 public class NovaReceitaActivity extends AppCompatActivity {
 
     private EditText tituloEditText, ingredientesEditText, recheioEditText, preparoEditText;
     private ImageView imagemReceitaImageView;
     private Button salvarButton, selecionarImagemButton;
     private String imagemUriSelecionada = null;
-    private ReceitaStorage storage;
-    private String emailUsuario;
+    private DatabaseHelper dbHelper;
+    private long loggedInUserId;
 
     private final ActivityResultLauncher<String> seletorImagemLauncher =
             registerForActivityResult(new ActivityResultContracts.GetContent(), uri -> {
@@ -44,8 +43,18 @@ public class NovaReceitaActivity extends AppCompatActivity {
         selecionarImagemButton = findViewById(R.id.btnSelecionarImagem);
         salvarButton = findViewById(R.id.btnSalvar);
 
-        emailUsuario = getIntent().getStringExtra("email_usuario");
-        storage = new ReceitaStorage(this);
+        dbHelper = new DatabaseHelper(this);
+
+        SharedPreferences preferences = getSharedPreferences("user_prefs", MODE_PRIVATE);
+        loggedInUserId = preferences.getLong("logged_in_user_id", -1);
+
+        if (loggedInUserId == -1) {
+            // Se não houver userId logado, redirecionar para a tela de login
+            Intent intent = new Intent(NovaReceitaActivity.this, MainActivity.class);
+            startActivity(intent);
+            finish();
+            return;
+        }
 
         selecionarImagemButton.setOnClickListener(v -> {
             seletorImagemLauncher.launch("image/*");
@@ -64,16 +73,18 @@ public class NovaReceitaActivity extends AppCompatActivity {
 
             Receita novaReceita = new Receita(titulo, ingredientes, recheio, preparo, imagemUriSelecionada);
 
-            List<Receita> receitas = storage.carregarReceitas(emailUsuario);
-            receitas.add(novaReceita);
-            storage.salvarReceitas(emailUsuario, receitas);
+            long newRecipeId = dbHelper.adicionarReceita(loggedInUserId, novaReceita);
 
-            Toast.makeText(this, "Receita salva com sucesso!", Toast.LENGTH_SHORT).show();
-
-            Intent intent = new Intent(NovaReceitaActivity.this, GaleriaReceitasActivity.class);
-            intent.putExtra("email_usuario", emailUsuario);
-            startActivity(intent);
-            finish();
+            if (newRecipeId != -1) {
+                Toast.makeText(this, "Receita salva com sucesso!", Toast.LENGTH_SHORT).show();
+                Intent resultIntent = new Intent();
+                setResult(RESULT_OK, resultIntent);
+                finish();
+            } else {
+                Toast.makeText(this, "Erro ao salvar receita!", Toast.LENGTH_SHORT).show();
+            }
         });
     }
 }
+
+

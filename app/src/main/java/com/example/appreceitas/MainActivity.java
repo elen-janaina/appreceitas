@@ -1,6 +1,7 @@
 package com.example.appreceitas;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.widget.EditText;
 import android.widget.TextView;
@@ -46,21 +47,24 @@ public class MainActivity extends AppCompatActivity {
             return;
         }
 
-        if (!dbHelper.verificarEmail(email)) {
-            Toast.makeText(this, "Email não encontrado", Toast.LENGTH_SHORT).show();
-            return;
+        long userId = dbHelper.verificarSenhaCorreta(email, senha);
+
+        if (userId != -1) {
+            Toast.makeText(this, "Login realizado com sucesso", Toast.LENGTH_SHORT).show();
+
+            // Salvar o userId nas SharedPreferences
+            SharedPreferences preferences = getSharedPreferences("user_prefs", MODE_PRIVATE);
+            SharedPreferences.Editor editor = preferences.edit();
+            editor.putLong("logged_in_user_id", userId);
+            editor.apply();
+
+            Intent intent = new Intent(MainActivity.this, GaleriaReceitasActivity.class);
+            startActivity(intent);
+            finish();
+        } else {
+            Toast.makeText(this, "Email ou senha incorretos", Toast.LENGTH_SHORT).show();
         }
-
-        if (!dbHelper.verificarSenhaCorreta(email, senha)) {
-            Toast.makeText(this, "Senha incorreta", Toast.LENGTH_SHORT).show();
-            return;
-        }
-
-        Toast.makeText(this, "Login realizado com sucesso", Toast.LENGTH_SHORT).show();
-
-        Intent intent = new Intent(MainActivity.this, GaleriaReceitasActivity.class);
-        intent.putExtra("email_usuario", email);
-        startActivity(intent);
-        finish();
     }
 }
+
+

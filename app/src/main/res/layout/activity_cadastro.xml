@@ -2,7 +2,7 @@
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#F5F5F5"
+    android:background="@color/backgroundLight"
     android:padding="16dp">
 
     <LinearLayout
@@ -27,74 +27,65 @@
                 android:textStyle="bold"
                 android:gravity="center"
                 android:padding="4dp"
-                android:background="#CCCCCC" />
+                android:background="@color/primaryColor"
+                android:textColor="@color/white" />
 
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="Nome:"
                 android:layout_marginTop="6dp"
-                android:textStyle="bold" />
+                android:textStyle="bold"
+                android:textColor="@color/darkGray" />
 
             <EditText
                 android:id="@+id/nomeEditText"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:inputType="textPersonName"
-                android:background="@android:drawable/editbox_background" />
+                android:background="@drawable/rounded_edittext_background" />
 
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="E-mail:"
                 android:layout_marginTop="6dp"
-                android:textStyle="bold" />
+                android:textStyle="bold"
+                android:textColor="@color/darkGray" />
 
             <EditText
                 android:id="@+id/emailEditText"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:inputType="textEmailAddress"
-                android:background="@android:drawable/editbox_background" />
+                android:background="@drawable/rounded_edittext_background" />
 
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="Data de Nascimento:"
-                android:layout_marginTop="6dp"
-                android:textStyle="bold" />
 
-            <EditText
-                android:id="@+id/dataNascimentoEditText"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:hint="dd/mm/aaaa"
-                android:inputType="date"
-                android:background="@android:drawable/editbox_background" />
 
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="Senha:"
                 android:layout_marginTop="6dp"
-                android:textStyle="bold" />
+                android:textStyle="bold"
+                android:textColor="@color/darkGray" />
 
             <EditText
                 android:id="@+id/senhaEditText"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:inputType="textPassword"
-                android:background="@android:drawable/editbox_background" />
+                android:background="@drawable/rounded_edittext_background" />
 
             <com.google.android.material.button.MaterialButton
                 android:id="@+id/cadastrarButton"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Cadastrar"
-                android:textColor="#000000"
+                android:textColor="@color/white"
                 android:layout_gravity="center_horizontal"
                 android:layout_marginTop="12dp"
-                android:backgroundTint="#CCCCCC"
+                android:backgroundTint="@color/primaryColor"
                 style="@style/Widget.MaterialComponents.Button" />
         </LinearLayout>
 
@@ -104,9 +95,11 @@
             android:layout_height="wrap_content"
             android:text="Já tem uma conta? Faça login"
             android:textStyle="italic"
-            android:textColor="#3F51B5"
+            android:textColor="@color/primaryColor"
             android:layout_marginTop="12dp"
             android:clickable="true"
             android:focusable="true" />
     </LinearLayout>
 </ScrollView>
+
+

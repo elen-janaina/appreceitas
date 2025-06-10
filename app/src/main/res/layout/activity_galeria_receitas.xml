@@ -4,7 +4,7 @@
     android:id="@+id/mainGalleryLayout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#F5F5F5"
+    android:background="@color/backgroundLight"
     tools:context="GaleriaReceitasActivity">
 
     <LinearLayout
@@ -12,15 +12,15 @@
         android:layout_width="match_parent"
         android:layout_height="60dp"
         android:orientation="horizontal"
-        android:background="#cccc
-"
+        android:background="@color/primaryColor"
         android:padding="8dp">
 
         <ImageView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
-            android:src="@android:drawable/ic_menu_agenda" />
+            android:src="@android:drawable/ic_menu_agenda"
+            android:tint="@color/white" />
 
         <EditText
             android:id="@+id/searchInput"
@@ -29,23 +29,24 @@
             android:layout_weight="1"
             android:hint="Pesquisar"
             android:paddingStart="8dp"
-            android:background="@null"
-            android:inputType="text" />
+            android:background="@drawable/rounded_edittext_background"
+            android:inputType="text"
+            android:textColorHint="@color/mediumGray"
+            android:textColor="@color/black" />
 
         <ImageView
             android:id="@+id/searchButton"
             android:layout_width="24dp"
             android:layout_height="24dp"
             android:src="@android:drawable/ic_menu_search"
-            android:layout_gravity="center_vertical" />
+            android:layout_gravity="center_vertical"
+            android:tint="@color/white" />
     </LinearLayout>
 
     <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="671dp"
-        android:layout_below="@id/searchBar"
-        android:layout_alignParentBottom="true"
-        android:layout_marginBottom="0dp">
+        android:layout_height="match_parent"
+        android:layout_below="@id/searchBar">
 
         <LinearLayout
             android:id="@+id/recipeGallery"
@@ -68,6 +69,8 @@
         android:background="@drawable/rounded_button"
         android:src="@android:drawable/ic_input_add"
         android:contentDescription="Adicionar Receita"
-        android:tint="@android:color/black" />
+        android:tint="@color/white" />
 
 </RelativeLayout>
+
+
